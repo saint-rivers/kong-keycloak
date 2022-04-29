@@ -1,0 +1,19 @@
+#
+GET http://localhost:8001/services
+
+###
+
+#
+GET http://localhost:8001/services/test-service/routes
+
+###
+
+#
+GET http://localhost:8081/api/test/unsecured
+
+###
+
+#
+GET http://localhost:8000/api/test/unsecured
+Host: test-service
+###

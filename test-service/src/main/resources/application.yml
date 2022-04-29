@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: test
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8800/auth/realms/myrealm
+          jwk-set-uri: http://localhost:8800/auth/realms/myrealm/protocol/openid-connect/certs
+server:
+  port: 8081
+
