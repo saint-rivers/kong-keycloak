@@ -15,26 +15,14 @@ function buildProject() {
 
 
 # clean up
-# docker container stop $(docker ps -aq)
-# docker container rm $(docker ps -aq)
-# docker container prune -f 
-# docker volume prune -f
-
 /bin/bash clear.sh
 
 
 # start services
-# mvn clean install
+mvn clean install
 docker-compose -f docker-compose.yml up -d --build
 
-# docker-compose -f kong-gateway/docker-compose.yml up -d --build
-# docker-compose -f auth-service/docker-compose.yml up -d
-
-# sleep 1s
-# pushd kong-gateway || exit
-# deck ping
-# deck sync
-# popd || exit
-
+# update kong configuration
+sleep 1s
 deck ping
 deck sync

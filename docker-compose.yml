@@ -26,8 +26,9 @@ services:
     ports:
       - 5433:5432
 
-  keycloak:
+  keycloak-service:
     image: jboss/keycloak:latest
+    container_name: keycloak-service
     volumes:
       - ./auth-service/realm.json:/opt/realm.json
     environment:
@@ -99,10 +100,12 @@ services:
       KONG_PLUGINS: oidc,key-auth
     links:
       - test-service
+      - keycloak-service
     depends_on:
       - kong-migration
       - kong-database
       - test-service
+      - keycloak-service
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://kong:8001" ]
       interval: 5s
