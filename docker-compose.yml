@@ -37,7 +37,7 @@ services:
       - 5433:5432
 
   keycloak-service:
-    image: jboss/keycloak:latest
+    image: quay.io/keycloak/keycloak:18.0
     container_name: keycloak-service
     volumes:
       - ./auth-service/realm.json:/opt/realm.json
