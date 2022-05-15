@@ -3,7 +3,8 @@
 This is literally all you need to run.
 
 ```bash
-. ./run.sh
+/bin/bash ./run.sh run
+deck sync
 ```
 
 Details on deployment can be found in `./run.sh`
