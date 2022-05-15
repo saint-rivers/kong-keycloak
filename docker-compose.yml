@@ -21,6 +21,8 @@ services:
     container_name: nginx-proxy
     ports:
       - "9443:443"
+    links:
+      - keycloak-service
     depends_on:
       - keycloak-service
 
