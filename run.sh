@@ -8,9 +8,9 @@ case $1 in
 run)
 
   mvn clean install
-  deck sync
   docker-compose -f docker-compose.yml up -d --build
-
+  deck sync
+  ./kong-gateway/scripts/enableKeycloakAsPlugin.sh
   exit 1
   ;;
 clear)
