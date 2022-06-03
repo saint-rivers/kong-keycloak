@@ -15,18 +15,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/test/unsecured").permitAll()
+                .antMatchers("/api/test/unsecured")
+                .permitAll()
+                .antMatchers("/")
+                .permitAll()
+                .antMatchers("/swagger-ui.html", "/swagger-ui/index.html", "/v3/api-docs")
+                .permitAll()
 
                 .anyRequest().authenticated()
 
                 .and()
                 .oauth2ResourceServer()
                 .jwt();
-
-        // http
-        // .authorizeRequests(auth -> auth.antMatchers("/api/test/unsecured")
-        // .hasAuthority("SCOPE_read")
-        // .anyRequest().authenticated())
-        // .oauth2ResourceServer(oauth2 -> oauth2.jwt());
     }
+
+    // @Override
+    // public void configure(WebSecurity web) throws Exception {
+    //     web.ignoring().antMatchers("/swagger-ui.html", "/swagger-ui/index.html", "/v3/api-docs");
+    // }
 }
