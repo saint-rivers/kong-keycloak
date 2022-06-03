@@ -20,7 +20,7 @@ spring:
       #       provider: keycloak
       resourceserver:
         jwt:
-          issuer-uri: https://128.199.164.171:9443/auth/realms/myrealm
-          jwk-set-uri: https://128.199.164.171:9443/auth/realms/myrealm/protocol/openid-connect/certs
+          issuer-uri: https://saintrivers.tech:9443/auth/realms/myrealm
+          jwk-set-uri: https://saintrivers.tech:9443/auth/realms/myrealm/protocol/openid-connect/certs
 
 # spring.security.oauth2.client.provider.keycloak.issuer-uri=http://localhost:8180/auth/realms/oauth2-demo-realm
