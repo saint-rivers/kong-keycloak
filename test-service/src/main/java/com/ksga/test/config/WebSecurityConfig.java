@@ -19,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/")
                 .permitAll()
-                .antMatchers("/swagger-ui.html", "/swagger-ui/index.html", "/v3/api-docs")
+                .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**")
                 .permitAll()
 
                 .anyRequest().authenticated()
@@ -29,8 +29,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .jwt();
     }
 
-    // @Override
-    // public void configure(WebSecurity web) throws Exception {
-    //     web.ignoring().antMatchers("/swagger-ui.html", "/swagger-ui/index.html", "/v3/api-docs");
-    // }
 }
