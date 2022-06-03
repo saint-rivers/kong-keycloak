@@ -6,7 +6,11 @@ help() {
 
 case $1 in
 run)
+
+  mvn clean install
+  deck sync
   docker-compose -f docker-compose.yml up -d --build
+
   exit 1
   ;;
 clear)
