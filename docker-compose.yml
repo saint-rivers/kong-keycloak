@@ -58,6 +58,7 @@ services:
       KEYCLOAK_IMPORT: /opt/realm.json
     ports:
       - "8800:8080"
+      - "8443:8443"
     depends_on:
       - keycloak-db
 
