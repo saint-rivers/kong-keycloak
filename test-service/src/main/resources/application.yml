@@ -1,14 +1,26 @@
 server:
   port: 8081
-  
+
 spring:
   application:
     name: test
   security:
     oauth2:
+      client:
+        registration:
+          oauth2-client-credentials:
+            client-id: myclient
+            client-secret: WtsCVT0SGearRTJqLCEdGYOnsYlEpc6R
+            scope:
+              - openid
+              - profile
+              - roles
+            authorization-grant-type: client_credentials
+            redirect-uri: http://localhost:8080/login/oauth2/code/oauth2-client-credentials
+            provider: keycloak
       resourceserver:
         jwt:
           issuer-uri: http://128.199.164.171:8800/auth/realms/myrealm
-          jwk-set-uri: https://128.199.164.171:9443/auth/realms/myrealm/protocol/openid-connect/certs
+          # jwk-set-uri: https://128.199.164.171:9443/auth/realms/myrealm/protocol/openid-connect/certs
 
-
+# spring.security.oauth2.client.provider.keycloak.issuer-uri=http://localhost:8180/auth/realms/oauth2-demo-realm
