@@ -3,19 +3,19 @@ version: '3.9'
 volumes:
   postgres_data:
     driver: local
-  
+
 services:
   test-service:
     build:
       context: ./test-service
       dockerfile: Dockerfile
     image: test-service
-    container_name: test-service
+    container_name: rest-test-service
     ports:
       - "8081:8081"
-  
+
   nginx-proxy:
-    build: 
+    build:
       context: ./nginx-proxy
       dockerfile: Dockerfile
     container_name: nginx-proxy
@@ -31,6 +31,7 @@ services:
     image: postgres:11
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    container_name: keycloak-database
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
@@ -39,10 +40,10 @@ services:
       - 5433:5432
 
   keycloak-service:
-    image: quay.io/keycloak/keycloak:18.0
+    image: jboss/keycloak:16.1.1
     container_name: keycloak-service
-    volumes:
-      - ./auth-service/realm.json:/opt/realm.json
+    # volumes:
+    #   - ./auth-service/realm.json:/opt/realm.json
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: keycloak-db
@@ -54,7 +55,7 @@ services:
       KEYCLOAK_PASSWORD: mrrobot
       KEYCLOAK_LOGLEVEL: DEBUG
       ROOT_LOGLEVEL: DEBUG
-      KEYCLOAK_IMPORT: /opt/realm.json
+      # KEYCLOAK_IMPORT: /opt/realm.json
     ports:
       - "8800:8080"
     depends_on:
@@ -62,7 +63,8 @@ services:
 
   kong-database:
     image: postgres:11
-    restart: always 
+    restart: always
+    container_name: kong-database
     environment:
       POSTGRES_USER: kong
       POSTGRES_DB: kong
@@ -80,7 +82,7 @@ services:
   #######################################
   kong-migration:
     image: kong:2.8.1-alpine
-    command: "kong migrations bootstrap" 
+    command: "kong migrations bootstrap"
     restart: on-failure
     environment:
       KONG_DATABASE: postgres
@@ -96,12 +98,13 @@ services:
   # Kong: The API Gateway
   #######################################
   kong:
+    container_name: kong-service
     build:
       context: ./kong-gateway
       dockerfile: Dockerfile
-    image: kong-oidc:latest 
-    restart: unless-stopped 
-    environment: 
+    image: kong-oidc:latest
+    restart: unless-stopped
+    environment:
       KONG_DATABASE: postgres
       KONG_PG_HOST: kong-database
       KONG_PG_PASSWORD: kong
@@ -126,6 +129,7 @@ services:
     ports:
       - "8001:8001"
       - "8000:8000"
+      - "8443:8443"
 
   konga-prepare:
     image: pantsel/konga:latest
@@ -135,10 +139,11 @@ services:
       - kong-database
     depends_on:
       - kong
-      - kong-database 
+      - kong-database
   konga:
     image: pantsel/konga:latest
     restart: always
+    container_name: konga-ui
     environment:
       DB_ADAPTER: postgres
       DB_HOST: kong-database
@@ -149,5 +154,4 @@ services:
       - kong
       - kong-database
     ports:
-      - "1337:1337" 
-
+      - "1337:1337"
