@@ -9,18 +9,27 @@ spring:
           # jwk-set-uri: http://localhost:8800/auth/realms/myrealm/protocol/openid-connect/certs
           issuer-uri: http://128.199.164.171:8800/auth/realms/myrealm
           jwk-set-uri: https://128.199.164.171:9443/auth/realms/myrealm/protocol/openid-connect/certs
-
-keycloak:
-  auth-server-url: http://128.199.164.171:8800/auth
-  realm: myrealm
-  resource: login-app
-  public-client: true
-  security-constraints:
-    - authRoles: [user]
-      securityCollections:
-        - name: api-testing
-          patterns: ["/api/test"]
-  principal-attribute: preferred_username
+  # rest:
+  #   security:
+  #     enabled: true
+  #     api-matcher: /api/**
+  #     cors:
+  #       allowed-origins: "*"
+  #       allowed-headers: "*"
+  #       allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+  #       max-age: 3600
+# keycloak:
+#   auth-server-url: http://128.199.164.171:8800/auth
+#   realm: myrealm
+#   resource: login-app
+#   public-client: true
+#   security-constraints:
+#     - authRoles: [user]
+#       securityCollections:
+#         - name: api-testing
+#           patterns: ["/api/test"]
+#   principal-attribute: preferred_username
 
 server:
   port: 8081
+
