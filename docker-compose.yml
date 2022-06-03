@@ -42,8 +42,8 @@ services:
   keycloak-service:
     image: jboss/keycloak:16.1.1
     container_name: keycloak-service
-    # volumes:
-    #   - ./auth-service/realm.json:/opt/realm.json
+    volumes:
+      - ./auth-service/realm.json:/opt/realm.json
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: keycloak-db
@@ -55,7 +55,7 @@ services:
       KEYCLOAK_PASSWORD: mrrobot
       KEYCLOAK_LOGLEVEL: DEBUG
       ROOT_LOGLEVEL: DEBUG
-      # KEYCLOAK_IMPORT: /opt/realm.json
+      KEYCLOAK_IMPORT: /opt/realm.json
     ports:
       - "8800:8080"
     depends_on:
